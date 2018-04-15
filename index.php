@@ -41,8 +41,10 @@ class wechatCallbackapiTest
 
     public function responseMsg()
     {
-        echo "HelloWorld";
+        // echo "HelloWorld";
         //$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        include_once "blogUpdater.php";
+
         $postStr = file_get_contents('php://input');
         if (!empty($postStr))
         {
@@ -50,6 +52,9 @@ class wechatCallbackapiTest
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
+
+
+
             $time = time();
             $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
@@ -67,7 +72,7 @@ class wechatCallbackapiTest
             }
             else
             {
-                $contentStr = "Ketword is: ".$keyword;
+                $contentStr = "Keyword is: ".$keyword;
             }
             $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
             echo $resultStr;
