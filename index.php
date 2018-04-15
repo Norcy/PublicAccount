@@ -43,7 +43,6 @@ class wechatCallbackapiTest
     {
         // echo "HelloWorld";
         //$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-        include_once "blogUpdater.php";
 
         $postStr = file_get_contents('php://input');
         if (!empty($postStr))
@@ -53,7 +52,8 @@ class wechatCallbackapiTest
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
 
-
+            include_once "blogUpdater.php";
+            updateBlog("", $keyword, "", "", "");
 
             $time = time();
             $textTpl = "<xml>

@@ -1,4 +1,5 @@
 <?php
+
 class BlogItem
 {
     private $year, $mouth, $date, $type, $name;
@@ -71,10 +72,10 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 		die("No Object Name");
 	}
 
+    $fileName = "ReadList.txt";
+
     $blogItem = new BlogItem($type, $objectName, $year, $mouth, $date);
     // $blogItem->printInfo();
-
-    $fileName = "ReadList.txt";
 
 	// 读取
 	$itemList = array();
@@ -91,7 +92,7 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 	// 添加
 	$newItem = $blogItem->blogItemInfo()."\n";
 	array_push($itemList, $newItem);
-
+    $itemList = array_unique($itemList);
 	// 排序
 	sort($itemList);
     
@@ -107,10 +108,19 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
     	}
     }
 	fclose($writeFile);
+
+    updateGithub($fileName);
 }
 
-function generateMarkdown()
+function updateGithub($fileName)
 {
-
+    if (copy("./".$fileName, "/var/www/html/Norcy.github.io/".$fileName))
+    {
+        echo "Copy Success";
+    }
+    else
+    {
+        echo "Copy Fail";
+    }
 }
 ?>
