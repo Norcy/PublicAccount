@@ -74,6 +74,12 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 
     $fileName = "ReadList.txt";
 
+    if (!file_exists($fileName))
+    {
+        $createFile = fopen($fileName, "w");
+        fclose($createFile);
+    }
+
     $blogItem = new BlogItem($type, $objectName, $year, $mouth, $date);
     // $blogItem->printInfo();
 
