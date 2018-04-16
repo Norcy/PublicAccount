@@ -114,6 +114,7 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 
 function updateGithub($fileName)
 {
+    // 复制数据库文件
     if (copy("./".$fileName, "/var/www/html/Norcy.github.io/".$fileName))
     {
         echo "Copy Success";
@@ -122,5 +123,10 @@ function updateGithub($fileName)
     {
         echo "Copy Fail";
     }
+
+    // 产生 markdown 文件
+
+    // 执行 git 更新操作
+    
 }
 ?>
