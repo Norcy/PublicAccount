@@ -53,7 +53,7 @@ class wechatCallbackapiTest
             $keyword = trim($postObj->Content);
 
             include_once "blogUpdater.php";
-            updateBlog("", $keyword, "", "", "");
+            updateBlog("m", $keyword, "", "", "");
 
             $time = time();
             $textTpl = "<xml>

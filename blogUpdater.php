@@ -63,7 +63,7 @@ class BlogItem
     }
 }
 
-// updateBlog("", "神秘巨星", "", "", "");
+updateBlog("s", "神秘巨星", "2019", "04", "");
 
 function updateBlog($type, $objectName, $year, $mouth, $date)
 {
@@ -72,67 +72,60 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 		die("No Object Name");
 	}
 
-    $fileName = "ReadList.txt";
+    $debug = 0;
 
-    if (!file_exists($fileName))
+    $pythonPath = "python3";
+    $pythonFilePath = "/var/www/html/Norcy.github.io/isee.py";
+
+    if ($debug)
     {
-        $createFile = fopen($fileName, "w");
-        fclose($createFile);
+        $pythonPath = "/Users/Norcy/anaconda/bin/python";
+        $pythonFilePath = "/Users/Norcy/Documents/Github/Norcy.github.io/isee.py";
     }
 
-    $blogItem = new BlogItem($type, $objectName, $year, $mouth, $date);
-    // $blogItem->printInfo();
+    shell_exec("'$pythonPath' '$pythonFilePath' '$objectName' '$type' '$year' '$mouth' '$date'");
+    
+    // $fileName = "ReadList.txt";
 
-	// 读取
-	$itemList = array();
-	$readFile = fopen($fileName, "r");
-	if ($readFile)
-	{
-		while(!feof($readFile)) 
-		{
-			array_push($itemList, fgets($readFile));
-		}
-		fclose($readFile);
-	}
+ //    if (!file_exists($fileName))
+ //    {
+ //        $createFile = fopen($fileName, "w");
+ //        fclose($createFile);
+ //    }
+
+ //    $blogItem = new BlogItem($type, $objectName, $year, $mouth, $date);
+ //    // $blogItem->printInfo();
+
+	// // 读取
+	// $itemList = array();
+	// $readFile = fopen($fileName, "r");
+	// if ($readFile)
+	// {
+	// 	while(!feof($readFile)) 
+	// 	{
+	// 		array_push($itemList, fgets($readFile));
+	// 	}
+	// 	fclose($readFile);
+	// }
 	
-	// 添加
-	$newItem = $blogItem->blogItemInfo()."\n";
-	array_push($itemList, $newItem);
-    $itemList = array_unique($itemList);
-	// 排序
-	sort($itemList);
+	// // 添加
+	// $newItem = $blogItem->blogItemInfo()."\n";
+	// array_push($itemList, $newItem);
+ //    $itemList = array_unique($itemList);
+	// // 排序
+	// sort($itemList);
     
-    // 重新写入
-    $writeFile = fopen($fileName, "w+") or die("Unable to open file!");
-    foreach ($itemList as $key => $value) 
-    {
-    	// 去除空白行
-    	$value = ltrim($value);
-    	if (is_string($value) && $value!='')
-    	{
-			fwrite($writeFile, $value);
-    	}
-    }
-	fclose($writeFile);
-
-    updateGithub($fileName);
-}
-
-function updateGithub($fileName)
-{
-    // 复制数据库文件
-    if (copy("./".$fileName, "/var/www/html/Norcy.github.io/".$fileName))
-    {
-        echo "Copy Success";
-    }
-    else
-    {
-        echo "Copy Fail";
-    }
-
-    // 产生 markdown 文件
-
-    // 执行 git 更新操作
-    
+ //    // 重新写入
+ //    $writeFile = fopen($fileName, "w+") or die("Unable to open file!");
+ //    foreach ($itemList as $key => $value) 
+ //    {
+ //    	// 去除空白行
+ //    	$value = ltrim($value);
+ //    	if (is_string($value) && $value!='')
+ //    	{
+	// 		fwrite($writeFile, $value);
+ //    	}
+ //    }
+	// fclose($writeFile);
 }
 ?>
