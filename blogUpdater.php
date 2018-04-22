@@ -63,7 +63,7 @@ class BlogItem
     }
 }
 
-updateBlog("s", "神秘巨星", "2019", "04", "");
+#updateBlog("s", "神秘巨星", "2019", "04", "");
 
 function updateBlog($type, $objectName, $year, $mouth, $date)
 {
