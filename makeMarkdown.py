@@ -27,7 +27,7 @@ photos: images/girl.jpg\n---\n\n";
 	# Year sort 
 	years = set();
 	for line in sourceFile:
-		words = line.split(" ");
+		words = line.split(" ", 4);
 		year = words[0].strip();
 		mouth = words[1].strip();
 		date = words[2].strip();
