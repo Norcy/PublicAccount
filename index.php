@@ -1,4 +1,8 @@
 <?php
+$locale='en_US.UTF-8';
+setlocale(LC_ALL,$locale);
+putenv('LC_ALL='.$locale);
+
 header('Content-type:text');
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();

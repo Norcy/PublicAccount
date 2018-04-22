@@ -1,5 +1,9 @@
 <?php
 
+$locale='en_US.UTF-8';  
+setlocale(LC_ALL,$locale);  
+putenv('LC_ALL='.$locale);
+
 class BlogItem
 {
     private $year, $mouth, $date, $type, $name;
@@ -63,7 +67,7 @@ class BlogItem
     }
 }
 
-#updateBlog("s", "神秘巨星", "2019", "04", "");
+#updateBlog("s", "神秘巨星2", "2019", "04", "");
 
 function updateBlog($type, $objectName, $year, $mouth, $date)
 {
@@ -72,18 +76,13 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 		die("No Object Name");
 	}
 
-    $debug = 0;
-
-    $pythonPath = "python3";
-    $pythonFilePath = "/var/www/html/Norcy.github.io/isee.py";
-
-    if ($debug)
-    {
-        $pythonPath = "/Users/Norcy/anaconda/bin/python";
-        $pythonFilePath = "/Users/Norcy/Documents/Github/Norcy.github.io/isee.py";
-    }
-
-    shell_exec("'$pythonPath' '$pythonFilePath' '$objectName' '$type' '$year' '$mouth' '$date'");
+	echo "Hello!";
+    	$pythonPath = "python3";
+    	$pythonFilePath = "/var/www/html/Norcy.github.io/isee.py";
+	$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date;
+	echo $cmd;	
+	shell_exec($cmd);
+    //echo shell_exec("$pythonPath $pythonFilePath $objectName $type $year $mouth $date");
     
     // $fileName = "ReadList.txt";
 
