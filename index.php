@@ -76,7 +76,7 @@ class wechatCallbackapiTest
             }
             else
             {
-                $contentStr = "Keyword is: ".$keyword;
+                $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
             }
             $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
             echo $resultStr;
