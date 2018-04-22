@@ -11,7 +11,12 @@ class BlogItem(object):
         self.url = url;
 
     def printInfo(self):
-    	return "+ 《"+self.name+"》";
+    	ret = "+ 《"+self.name+"》";
+    	if self.type == "b":
+    		ret += "（书）";
+    	elif self.type == "s":
+    		ret += "（连续剧）";
+    	return ret
 
 def saveMarkdown():
 	sourceFile = open("ReadList.txt", 'r', encoding="utf-8");
@@ -27,6 +32,9 @@ photos: images/girl.jpg\n---\n\n";
 	# Year sort 
 	years = set();
 	for line in sourceFile:
+		line = line.strip();
+		if len(line) == 0:
+			continue;
 		words = line.split(" ", 4);
 		year = words[0].strip();
 		mouth = words[1].strip();
@@ -59,8 +67,10 @@ photos: images/girl.jpg\n---\n\n";
 		for mouth in mouthArray:
 			destFile.write("## "+mouth+"月\n");
 			for blogItem in yearBlogItems:
-				destFile.write(blogItem.printInfo()+"\n");
-		destFile.write("\r\n");
+				if (blogItem.mouth == mouth):
+					destFile.write(blogItem.printInfo()+"\n");
+			destFile.write("\n");
+		destFile.write("\n");
 
 
 	sourceFile.close();
