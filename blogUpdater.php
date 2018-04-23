@@ -67,7 +67,7 @@ class BlogItem
     }
 }
 
-#updateBlog("s", "神秘巨星2", "2019", "04", "");
+//updateBlog("b", "神秘巨星99", "2029", "05", "");
 
 function updateBlog($type, $objectName, $year, $mouth, $date)
 {
@@ -79,9 +79,9 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 	echo "Hello!";
     	$pythonPath = "python3";
     	$pythonFilePath = "/var/www/html/Norcy.github.io/isee.py";
-	$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date;
+	$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date." 2>&1";
 	echo $cmd;	
-	shell_exec($cmd);
+	var_dump(shell_exec($cmd));
     //echo shell_exec("$pythonPath $pythonFilePath $objectName $type $year $mouth $date");
     
     // $fileName = "ReadList.txt";
