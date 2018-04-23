@@ -67,7 +67,7 @@ class BlogItem
     }
 }
 
-//updateBlog("b", "神秘巨星999", "2029", "05", "");
+updateBlog("b", "神秘巨星999", "2029", "05", "");
 
 function updateBlog($type, $objectName, $year, $mouth, $date)
 {
