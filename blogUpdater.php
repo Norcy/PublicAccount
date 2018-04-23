@@ -79,7 +79,7 @@ function updateBlog($type, $objectName, $year, $mouth, $date)
 	//echo "Hello!";
     	$pythonPath = "python3";
     	$pythonFilePath = "/var/www/html/Norcy.github.io/isee.py";
-	$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date;
+	$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date." &";
 	//$cmd = "python3 /var/www/html/Norcy.github.io/isee.py ".$objectName." ".$type." ".$year." ".$mouth." ".$date." 2>&1";
 	//echo $cmd;	
 	//var_dump(shell_exec($cmd));
