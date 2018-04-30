@@ -55,9 +55,18 @@ class wechatCallbackapiTest
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
-
-            include_once "blogUpdater.php";
-            updateBlog("m", $keyword, "", "", "");
+	    $keywords = explode(" ", $keyword);
+	    $objName = $keywords[0];
+	    $objType = "m";
+	    if (count($keywords) > 1)
+	    {
+		$objType = $keywords[1];
+	    }
+	    if ($fromUsername == "o_iMAj1gZOuQIR_yDK7Sz5nsFqnw")
+	    {
+		include_once "blogUpdater.php";
+                updateBlog($objType, $objName, "", "", "");
+	    }
 
             $time = time();
             $textTpl = "<xml>
@@ -70,13 +79,13 @@ class wechatCallbackapiTest
                         </xml>";
 
             $msgType = "text";
-            if($keyword == "?" || $keyword == "？")
+            if($fromUsername != "o_iMAj1gZOuQIR_yDK7Sz5nsFqnw" || $keyword == "?" || $keyword == "？")
             {
                 $contentStr = date("Y-m-d H:i:s",time());
             }
             else
             {
-                $contentStr = $fromUsername."http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
+                $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
             }
             $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
             echo $resultStr;
