@@ -56,19 +56,15 @@ class wechatCallbackapiTest
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
         $keyword = trim($postObj->Content);
-    	$keywords = explode(" ", $keyword);
-    	$objName = $keywords[0];
-    	$objType = "m";
+    	
+        // 生人勿近
+        if ($fromUsername != "o_iMAj1gZOuQIR_yDK7Sz5nsFqnw")
+        {
+            echo "Not Me";
+            exit;
+        }
 
-	    if (count($keywords) > 1)
-	    {
-			$objType = $keywords[1];
-	    }
-	    if ($fromUsername == "o_iMAj1gZOuQIR_yDK7Sz5nsFqnw")
-	    {
-			include_once "blogUpdater.php";
-			updateBlog($objType, $objName, "", "", "");
-	    }
+        handleKeyword($keyword);
 
         $time = time();
         $textTpl = "<xml>
@@ -81,19 +77,33 @@ class wechatCallbackapiTest
                     </xml>";
 
         $msgType = "text";
-        if ($fromUsername != "o_iMAj1gZOuQIR_yDK7Sz5nsFqnw" || 
-        	$keyword == "?" || 
-        	$keyword == "？")
-        {
-            $contentStr = date("Y-m-d H:i:s",time());
-        }
-        else
-        {
-            $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
-        }
+        
+        $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
         
         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         echo $resultStr;
+    }
+
+    public function handleKeyword($keyword)
+    {
+        $keywords = explode(" ", $keyword);
+        // 命令类型：add/del name [m/b/s]
+        if (count($keywords) < 2)
+        {
+            echo "Miss Params";
+            exit;
+        }
+
+        $cmdType = $keywords[0];
+        $objName = $keywords[1];
+        $objType = "m";
+        if (count($keywords) > 2)
+        {
+            $objType = $keywords[2];
+        }
+
+        include_once "blogUpdater.php";
+        updateBlog($cmdType, $objType, $objName, "", "", "");
     }
 }
 ?>
