@@ -64,7 +64,7 @@ class wechatCallbackapiTest
             exit;
         }
 
-        handleKeyword($keyword);
+        $this->handleKeyword($keyword);
 
         $time = time();
         $textTpl = "<xml>
@@ -101,7 +101,6 @@ class wechatCallbackapiTest
         {
             $objType = $keywords[2];
         }
-
         include_once "blogUpdater.php";
         updateBlog($cmdType, $objType, $objName, "", "", "");
     }
