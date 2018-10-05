@@ -90,7 +90,7 @@ class wechatCallbackapiTest
         // 命令类型：add/del name [m/b/s]
         if (count($keywords) < 2)
         {
-            echo "Miss Params";
+            echo "Usage: add/del name [m/b/s] [year-mouth-day]";
             exit;
         }
 
