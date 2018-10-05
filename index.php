@@ -64,7 +64,7 @@ class wechatCallbackapiTest
             exit;
         }
 
-        $this->handleKeyword($keyword);
+        $contentStr = $this->handleKeyword($keyword);
 
         $time = time();
         $textTpl = "<xml>
@@ -78,7 +78,10 @@ class wechatCallbackapiTest
 
         $msgType = "text";
         
-        $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";
+        if (!$contentStr)
+        {
+            $contentStr = "http://norcy.github.io/2013/03/01/%E9%82%A3%E4%BA%9B%E5%B9%B4%EF%BC%8C%E6%88%91%E7%9C%8B%E8%BF%87%E7%9A%84/";    
+        }
         
         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         echo $resultStr;
@@ -87,22 +90,26 @@ class wechatCallbackapiTest
     public function handleKeyword($keyword)
     {
         $keywords = explode(" ", $keyword);
-        // 命令类型：add/del name [m/b/s]
+        // 命令类型：add/del name [m/b/s] [year-mouth]
         if (count($keywords) < 2)
         {
-            echo "Usage: add/del name [m/b/s] [year-mouth-day]";
-            exit;
+            return "Usage: add/del name [m/b/s] [year-mouth]";
         }
 
         $cmdType = $keywords[0];
         $objName = $keywords[1];
         $objType = "m";
-        if (count($keywords) > 2)
+        $year = "";
+        $mouth = "";
+        if (count($keywords) >= 4)
         {
             $objType = $keywords[2];
+            $time = explode("-", $keywords[3]);
+            $year = $time[0];
+            $mouth = $time[1];
         }
         include_once "blogUpdater.php";
-        updateBlog($cmdType, $objType, $objName, "", "", "");
+        updateBlog($cmdType, $objType, $objName, $year, $mouth, "");
     }
 }
 ?>
