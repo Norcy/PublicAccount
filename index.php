@@ -101,12 +101,15 @@ class wechatCallbackapiTest
         $objType = "m";
         $year = "";
         $mouth = "";
-        if (count($keywords) >= 4)
+        if (count($keywords) >= 3)
         {
             $objType = $keywords[2];
-            $time = explode("-", $keywords[3]);
-            $year = $time[0];
-            $mouth = $time[1];
+            if (count($keywords) >= 4)
+            {
+                $time = explode("-", $keywords[3]);
+                $year = $time[0];
+                $mouth = $time[1];
+            }    
         }
         include_once "blogUpdater.php";
         updateBlog($cmdType, $objType, $objName, $year, $mouth, "");
